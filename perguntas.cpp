@@ -11,7 +11,7 @@ typedef struct {
 Pergunta ler_pergunta(int id_pergunta, int bloco);
 void mostrar_pergunta(Pergunta pergunta, int count_pergunta, float saldo, int[4]);
 
-// id_pergunta = [1,20] e [1,10] para super difícil
+// id_pergunta = [0,19] e [0,9] para super difícil
 // bloco de 0 a 3
 Pergunta ler_pergunta(int id_pergunta, int bloco) {
 
@@ -25,13 +25,14 @@ Pergunta ler_pergunta(int id_pergunta, int bloco) {
     }
 
     if(bloco == 3) { // Bloco de perguntas super difíceis
-        fseek(perguntas, bloco * 10 + id_pergunta - 1, 0);
+        fseek(perguntas, 60 * sizeof(Pergunta) + (id_pergunta-1) * sizeof(Pergunta), 0);
     }else { // Demais Blocos de Pergunta
-        fseek(perguntas, bloco * 20 + id_pergunta - 1, 0);
+        fseek(perguntas, bloco * sizeof(Pergunta) * 20 + id_pergunta * sizeof(Pergunta), 0);
     }
 
     bytes_lidos = fread(&pergunta, sizeof(Pergunta), 1, perguntas);
-    fseek(SEEK_SET, 0,0); // Reseta a posição do ponteiro do arquivo
+    // Reseta a posição do ponteiro do arquivo
+    fseek(perguntas, SEEK_SET,0); 
 
     if(bytes_lidos == 0) {
         perror("Pergunta não foi encontrada.");
@@ -45,8 +46,10 @@ Pergunta ler_pergunta(int id_pergunta, int bloco) {
 
 void mostrar_pergunta(Pergunta pergunta, int count_pergunta, float saldo, int recursos[4]) {
 
-    printf("==-----------\n");
+    printf("\n==-----------\n");
     printf("== Pergunta %d\n", count_pergunta);
+    printf("== Dificuldade : %d\n", pergunta.nivel);
+    printf("Voce possui um total acumulado de R$ %.2f\n", saldo);
     printf("\n");
     printf("%s\n", pergunta.descricao);
     printf("a) %s\n", pergunta.alt[0]);
