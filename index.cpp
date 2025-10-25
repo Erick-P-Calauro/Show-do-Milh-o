@@ -2,6 +2,7 @@
 #include <time.h>
 #include <math.h>
 #include <random>
+#include <string.h>
 #include "perguntas.cpp"
 #include "utilidades.cpp"
 
@@ -54,6 +55,7 @@ int main() {
             scanf("%c%*c", &escolha);
 
             switch(escolha) {
+                // Pular pergunta
                 case '1':
 
                     // Se tem recurso[0] (Pular) pula a pergunta
@@ -64,6 +66,7 @@ int main() {
                     }
 
                     break;
+                // Pedir ajuda à plateia
                 case '2':
 
                     resposta_valida = 0;
@@ -86,6 +89,7 @@ int main() {
                     }
                 
                     break;
+                // Pedir ajuda aos universitarios
                 case '3':
 
                     resposta_valida = 0;
@@ -108,12 +112,60 @@ int main() {
                     }
 
                     break;
+                // Pedir ajuda às cartas
                 case '4':
+
+                    resposta_valida = 0;
+
+                    if(recursos[3] != 0) {
+                        int escolha_cartas;
+                        int alternativa_correta = pergunta.alt_correta % 97;
+
+                        printf("Escolha uma carta (0,1,2 ou 3) : ");
+                        scanf("%d%*c", &escolha_cartas);
+
+                        if(escolha_cartas == 3) {
+                            for(int i = 0; i < 4; i++) {
+                                if(i != alternativa_correta) {
+                                    strcpy(pergunta.alt[i], "");
+                                }
+                            }
+                        }
+
+                        if(escolha_cartas == 2) {
+                            int *cartas = (int*) malloc(sizeof(int) * 2);
+                            
+                            do {
+                               cartas[0] = rand() % 4;
+                               cartas[1] = rand() % 4;
+                            }while(cartas[0] == alternativa_correta || cartas[1] == alternativa_correta);
+
+                            strcpy(pergunta.alt[cartas[0]], "");
+                            strcpy(pergunta.alt[cartas[1]], "");
+
+                            free(cartas);
+                        }
+
+                        if(escolha_cartas == 1) {
+                            int carta;
+                            
+                            do {
+                                carta = rand() % 4;
+                            }while(carta == alternativa_correta);
+
+                            strcpy(pergunta.alt[carta], "");
+                        }
+
+                        recursos[3]--;
+                    }
+
                     break;
+                // Sair
                 case '5':
                     printf("\nVoce saiu com R$ %.2f\n\n", valor_acumulado);
                     continuar = 0;
                     break;
+                // Alternativas de resposta
                 case 'a':
                 case 'b':
                 case 'c':
@@ -165,6 +217,7 @@ int main() {
                     pergunta_count++; 
 
                     break;
+                // Caso a resposta seja inválida
                 default:
                     printf("Alternativa invalida...\n");
                     resposta_valida = 0;
