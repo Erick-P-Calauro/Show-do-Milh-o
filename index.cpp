@@ -138,7 +138,7 @@ int main() {
                             do {
                                cartas[0] = rand() % 4;
                                cartas[1] = rand() % 4;
-                            }while(cartas[0] == alternativa_correta || cartas[1] == alternativa_correta);
+                            }while(cartas[0] == alternativa_correta || cartas[1] == alternativa_correta || cartas[0] == cartas[1]);
 
                             strcpy(pergunta.alt[cartas[0]], "");
                             strcpy(pergunta.alt[cartas[1]], "");
