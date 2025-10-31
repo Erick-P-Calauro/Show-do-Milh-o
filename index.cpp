@@ -6,6 +6,9 @@
 #include "perguntas.cpp"
 #include "utilidades.cpp"
 
+// Código-fonte Show-Do-Milhão
+// Autores : Erick Calauro e Vinicius Cardoso
+
 int main() {
 
     float valor_acumulado = 0;
@@ -195,8 +198,6 @@ int main() {
 
                     // Realiza mudança das dificuldades
                     if(pergunta_count % 5 == 0 && continuar) {
-                        printf("%d\n", bloco);
-
                         bloco += 1;
                         resetar_vetor(perguntas_realizadas, 5);
 

@@ -1,9 +1,13 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+// Código-fonte Show-Do-Milhão
+// Autores : Erick Calauro e Vinicius Cardoso
+
 bool inteiro_em_vetor(int valor, int* vetor);
 void resetar_vetor(int* vetor, size_t tam);
-int* criar_array_probabilidades(char alt_correta);
+int* criar_array_plateia(char alt_correta);
+int* criar_array_universitarios(char alt_correta);
 
 bool inteiro_em_vetor(int valor, int* vetor, size_t tam) {
     

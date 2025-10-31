@@ -1,6 +1,9 @@
 #include <stdio.h>
 #include <cstdlib>
 
+// Código-fonte Show-Do-Milhão
+// Autores : Erick Calauro e Vinicius Cardoso
+
 typedef struct {
     char nivel;
     char descricao[200];
